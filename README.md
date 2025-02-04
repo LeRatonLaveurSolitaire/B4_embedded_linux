@@ -1,2 +1,2 @@
 # B4_embedded_linux
- writing a kernel and hardware drivers  for fun
+Writing a kernel and hardware drivers  for fun
