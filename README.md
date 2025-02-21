@@ -44,6 +44,8 @@ bootz 0x62000000 0x63100000 0x63000000
 
 ## TP2 - Device Model
 
+The goal of this TP was to add a I2C device (ADXL345) and write a driver able to communicate with the device.
+
 ```bash
 ./qemu-system-arm -machine vexpress-a9 -nographic -kernel TP2/linux/build/arch/arm/boot/zImage -dtb TP2/linux/build/arch/arm/boot/dts/arm/vexpress-v2p-ca9.dtb -initrd rootfs.cpio.gz -fsdev local,path=TP2/pilote\_i2c,security\_model=mapped,id=mnt -device virtio-9p-device,fsdev=mnt,mount\_tag=mnt
 ```
@@ -57,6 +59,8 @@ insmod /mnt/adxl345.ko
 
 
 ## TP3 - Interface with the userspace
+
+The goal of this TP was to create a user interface with the ADXL345.
 
 ```bash
 ./qemu-system-arm -machine vexpress-a9 -nographic -kernel TP3/linux-5.10.19/build/arch/arm/boot/zImage -dtb TP3/linux-5.10.19/build/arch/arm/boot/dts/vexpress-v2p-ca9.dtb -initrd rootfs.cpio.gz -fsdev local,path=TP3/pilote\_i2c,security\_model=mapped,id=mnt -device virtio-9p-device,fsdev=mnt,mount\_tag=mnt
@@ -74,6 +78,8 @@ cd /mnt
 
 ## TP4 - Interruptions
 
+The goal of this TP was interruptions and FIFOs in order to read the values of the ADXL345 and transmit them to the user.
+
 ```bash
 ./qemu-system-arm -machine vexpress-a9 -nographic -kernel TP4/linux/build/arch/arm/boot/zImage -dtb TP4/linux/build/arch/arm/boot/dts/arm/vexpress-v2p-ca9.dtb -initrd rootfs.cpio.gz -fsdev local,path=TP4/pilote\_i2c,security\_model=mapped,id=mnt -device virtio-9p-device,fsdev=mnt,mount\_tag=mnt
 ```
@@ -89,6 +95,8 @@ cd /mnt
 
 
 ## TP5 - Concurrence
+
+The goal of this TP was to fix the concurrent issues in pervious driver and user interface to make them safe to use.
 
 ```bash
 ./qemu-system-arm -machine vexpress-a9 -nographic -kernel TP5/linux/build/arch/arm/boot/zImage -dtb TP5/linux/build/arch/arm/boot/dts/arm/vexpress-v2p-ca9.dtb -initrd rootfs.cpio.gz -fsdev local,path=TP5/pilote\_i2c,security\_model=mapped,id=mnt -device virtio-9p-device,fsdev=mnt,mount\_tag=mnt
