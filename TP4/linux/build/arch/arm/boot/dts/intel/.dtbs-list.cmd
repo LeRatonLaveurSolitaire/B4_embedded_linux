@@ -1,0 +1,1 @@
+savedcmd_arch/arm/boot/dts/intel/dtbs-list := {   cat arch/arm/boot/dts/intel/axm/dtbs-list;   cat arch/arm/boot/dts/intel/ixp/dtbs-list;   cat arch/arm/boot/dts/intel/pxa/dtbs-list;   cat arch/arm/boot/dts/intel/socfpga/dtbs-list; :; } > arch/arm/boot/dts/intel/dtbs-list

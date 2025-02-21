@@ -1,0 +1,1 @@
+savedcmd_arch/arm/boot/dts/nxp/dtbs-list := {   cat arch/arm/boot/dts/nxp/imx/dtbs-list;   cat arch/arm/boot/dts/nxp/lpc/dtbs-list;   cat arch/arm/boot/dts/nxp/ls/dtbs-list;   cat arch/arm/boot/dts/nxp/mxs/dtbs-list;   cat arch/arm/boot/dts/nxp/vf/dtbs-list; :; } > arch/arm/boot/dts/nxp/dtbs-list

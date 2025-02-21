@@ -1,0 +1,1 @@
+savedcmd_arch/arm/boot/dts/ti/dtbs-list := {   cat arch/arm/boot/dts/ti/davinci/dtbs-list;   cat arch/arm/boot/dts/ti/keystone/dtbs-list;   cat arch/arm/boot/dts/ti/omap/dtbs-list; :; } > arch/arm/boot/dts/ti/dtbs-list
