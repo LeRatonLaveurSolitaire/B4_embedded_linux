@@ -15,10 +15,11 @@
 
 int main()
 {
-    // Request the axis to read
+    // Initialization
     char axis;
     int selected_axis;
 
+    // Request the axis to read
     printf("Choose an axis (x, y, z): ");
     scanf("%c", &axis);
 
@@ -39,6 +40,7 @@ int main()
     printf("Number of samples: ");
     scanf("%u", &samples);
 
+    // Open the device file using a standard system call
     int file = open(FILE_NAME, O_RDONLY);
     if (file < 0)
     {
@@ -61,7 +63,7 @@ int main()
     for (unsigned int i = 0; i < samples; i++)
     {
         printf("Sample %u\n", i+1);
-        // Read from the device
+        // Read from the device the bytes corresponding to one sample
         bytes_read = read(file, &buffer[i], sizeof(long));
         if (bytes_read < 0)
         {
@@ -72,7 +74,7 @@ int main()
 
         printf("Result = %hd\n\n", buffer[i]);
 
-        usleep(100000); // Sleep for 100 milliseconds
+        usleep(10000); // Sleep for 10 milliseconds
     }
 
     // Close the device file

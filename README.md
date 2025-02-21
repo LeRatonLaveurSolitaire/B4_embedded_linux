@@ -59,19 +59,46 @@ insmod /mnt/adxl345.ko
 ## TP3 - Interface with the userspace
 
 ```bash
+./qemu-system-arm -machine vexpress-a9 -nographic -kernel TP3/linux-5.10.19/build/arch/arm/boot/zImage -dtb TP3/linux-5.10.19/build/arch/arm/boot/dts/vexpress-v2p-ca9.dtb -initrd rootfs.cpio.gz -fsdev local,path=TP3/pilote\_i2c,security\_model=mapped,id=mnt -device virtio-9p-device,fsdev=mnt,mount\_tag=mnt
+```
 
+Once on qemu, login with `root` and then run the follwing commands :
+
+```bash
+mount -t 9p -o trans=virtio mnt /mnt -oversion=9p2000.L,msize=10240
+insmod /mnt/adxl345.ko 
+cd /mnt
+./main
 ```
 
 
 ## TP4 - Interruptions
 
 ```bash
+./qemu-system-arm -machine vexpress-a9 -nographic -kernel TP4/linux/build/arch/arm/boot/zImage -dtb TP4/linux/build/arch/arm/boot/dts/arm/vexpress-v2p-ca9.dtb -initrd rootfs.cpio.gz -fsdev local,path=TP4/pilote\_i2c,security\_model=mapped,id=mnt -device virtio-9p-device,fsdev=mnt,mount\_tag=mnt
+```
 
+Once on qemu, login with `root` and then run the follwing commands :
+
+```bash
+mount -t 9p -o trans=virtio mnt /mnt -oversion=9p2000.L,msize=10240
+insmod /mnt/adxl345.ko 
+cd /mnt
+./main
 ```
 
 
 ## TP5 - Concurrence
 
 ```bash
+./qemu-system-arm -machine vexpress-a9 -nographic -kernel TP5/linux/build/arch/arm/boot/zImage -dtb TP5/linux/build/arch/arm/boot/dts/arm/vexpress-v2p-ca9.dtb -initrd rootfs.cpio.gz -fsdev local,path=TP5/pilote\_i2c,security\_model=mapped,id=mnt -device virtio-9p-device,fsdev=mnt,mount\_tag=mnt
+```
 
+Once on qemu, login with `root` and then run the follwing commands :
+
+```bash
+mount -t 9p -o trans=virtio mnt /mnt -oversion=9p2000.L,msize=10240
+insmod /mnt/adxl345.ko 
+cd /mnt
+./main
 ```

@@ -1,1 +1,1 @@
-# TP2 - Creating a custom driver for a adxl345 accelerometer (Jules Farnault)
+ TP2 - Creating a custom driver for a adxl345 accelerometer (Jules Farnault)

@@ -1,1 +1,1 @@
-savedcmd_adxl345.mod := printf '%s\n'   adxl345.o | awk '!x[$$0]++ { print("./"$$0) }' > adxl345.mod
+cmd_/home/coolman/seti_b4_tp/pilote_i2c/adxl345.mod := { echo  /home/coolman/seti_b4_tp/pilote_i2c/adxl345.o;  echo; } > /home/coolman/seti_b4_tp/pilote_i2c/adxl345.mod

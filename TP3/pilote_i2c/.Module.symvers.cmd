@@ -1,1 +1,1 @@
-savedcmd_Module.symvers :=  /home/jf/Documents/M2R_SETI/B4/TP/linux/build/scripts/mod/modpost -M          -o Module.symvers -T modules.order -i /home/jf/Documents/M2R_SETI/B4/TP/linux/build/Module.symvers -e 
+cmd_/home/coolman/seti_b4_tp/pilote_i2c/Module.symvers := sed 's/ko$$/o/' /home/coolman/seti_b4_tp/pilote_i2c/modules.order | scripts/mod/modpost     -o /home/coolman/seti_b4_tp/pilote_i2c/Module.symvers -e -i Module.symvers   -T -

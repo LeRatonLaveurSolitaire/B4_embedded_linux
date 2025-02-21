@@ -6,6 +6,8 @@
 #include <linux/miscdevice.h>
 #include <linux/fs.h>
 #include <linux/uaccess.h>
+#include <linux/kfifo.h>
+#include <linux/interrupt.h>
 
 char number_of_device = 0;
 
@@ -21,6 +23,7 @@ char number_of_device = 0;
 #define ADXL345_REG_DATA_Z0 0x36
 #define ADXL345_REG_DATA_Z1 0x37
 #define ADXL345_REG_FIFO_CTL 0x38
+#define ADXL345_REG_FIFO_STATUS 0x39
 
 #define IOCTL_SET_AXIS_X _IO('a', 1)
 #define IOCTL_SET_AXIS_Y _IO('a', 2)
@@ -71,13 +74,14 @@ static int write_register_i2c(struct i2c_client *client, char reg_address, char 
 
 static ssize_t adxl345_read(struct file *file, char __user *buf, size_t count, loff_t *ppos)
 {
+    short value;
     pr_info("Read function call\n");
     struct adxl345_device *adxl345_dev = container_of(file->private_data, struct adxl345_device, misc_dev);
     struct i2c_client *client = container_of(adxl345_dev->misc_dev.parent, struct i2c_client, dev);
     char data[2];
     int error = 0;
 
-    // Read data from the accelerometer based on the selected axis
+    // Read data from the accelerometer based on the selected axis using the read_register_i2c function
     if (adxl345_dev->axis == 1) {
         error = read_register_i2c(client, ADXL345_REG_DATA_X0, &data[0]);
         if (error) return error;
@@ -99,7 +103,7 @@ static ssize_t adxl345_read(struct file *file, char __user *buf, size_t count, l
     }
 
     // Combine the data into a single value
-    short value = (data[1] << 8) | data[0];
+    value = (data[1] << 8) | data[0];
 
     // Copy the value to user space
     if (copy_to_user(buf, &value, sizeof(value))) {
@@ -146,35 +150,44 @@ static const struct file_operations adxl345_fops = {
     .unlocked_ioctl = adxl345_ioctl,
 };
 
-static int adxl345_probe(struct i2c_client *client)
+static int adxl345_probe(struct i2c_client *client, const struct i2c_device_id *id)
 {
-    char id;
+    char id_val;
     int error = 0;
 
     pr_info("ADXL345 is connect\n");
 
-    error = read_register_i2c(client, ADXL345_REG_DEVID, &id);
+    error = read_register_i2c(client, ADXL345_REG_DEVID, &id_val);
     if (error) {
         pr_info("[ERROR] Failed to read DEVID register\n");
         return error;
     }
 
-    pr_info("ADXL345 DEVID: %X\n", id);
+    pr_info("ADXL345 DEVID: %X\n", id_val);
 
     write_register_i2c(client, ADXL345_REG_BW_RATE, 0x0A);
-    write_register_i2c(client, ADXL345_REG_INT_ENABLE, 0x00);
+    write_register_i2c(client, ADXL345_REG_INT_ENABLE, 0x02);
     write_register_i2c(client, ADXL345_REG_DATA_FORMAT, 0x00);
     write_register_i2c(client, ADXL345_REG_FIFO_CTL, 0x00);
     write_register_i2c(client, ADXL345_REG_POWER_CTL, 0x08);
+    write_register_i2c(client, ADXL345_REG_FIFO_CTL, 0b10010100);
 
+    // Creation of an instance adxl345_dev of the struct adxl345_device
     struct adxl345_device *adxl345_dev;
+    char *name;
+
+    // Dynamically allocate memory for an instance of the struct adxl345_device
     adxl345_dev = kmalloc(sizeof(struct adxl345_device), GFP_KERNEL);
     if (!adxl345_dev) {
         pr_info("[ERROR] kmalloc failed\n");
         return -ENOMEM;
     }
 
-    char *name = kasprintf(GFP_KERNEL, "adxl345-%d", number_of_device);
+    // Association between the instance of i2c_client and the adxl345_dev
+    i2c_set_clientdata(client, adxl345_dev);
+
+    // Creation of the field name of the struct miscdevice
+    name = kasprintf(GFP_KERNEL, "adxl345-%d", number_of_device);
     if (!name) {
         pr_info("[ERROR] kasprintf name failed\n");
         kfree(adxl345_dev);
@@ -182,11 +195,14 @@ static int adxl345_probe(struct i2c_client *client)
     }
     number_of_device++;
 
+    // Fill of the structure misc_dev contained in the structure adxl345_dev 
     adxl345_dev->misc_dev.minor = MISC_DYNAMIC_MINOR;
     adxl345_dev->misc_dev.name = name;
     adxl345_dev->misc_dev.parent = &client->dev;
     adxl345_dev->misc_dev.fops = &adxl345_fops;
 
+
+    // Register with the misc framework
     if (misc_register(&adxl345_dev->misc_dev)) {
         pr_info("[ERROR] misc_register failed\n");
         kfree(name);
@@ -194,11 +210,10 @@ static int adxl345_probe(struct i2c_client *client)
         return -ENOMEM;
     }
 
-    i2c_set_clientdata(client, adxl345_dev);
     return 0;
 }
 
-static void adxl345_remove(struct i2c_client *client)
+static int adxl345_remove(struct i2c_client *client)
 {
     struct adxl345_device *adxl345_dev = i2c_get_clientdata(client);
     write_register_i2c(client, ADXL345_REG_POWER_CTL, 0x04);
@@ -208,6 +223,7 @@ static void adxl345_remove(struct i2c_client *client)
     kfree(adxl345_dev->misc_dev.name);
     kfree(adxl345_dev);
     pr_info("ADXL345 is disconnect\n");
+    return 0;
 }
 
 static struct i2c_device_id adxl345_idtable[] = {
