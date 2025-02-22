@@ -1,1 +1,0 @@
-cmd_/home/coolman/seti_b4_tp/pilote_i2c/adxl345.ko := arm-linux-gnueabihf-ld -r -EL --build-id=sha1  -T scripts/module.lds -o /home/coolman/seti_b4_tp/pilote_i2c/adxl345.ko /home/coolman/seti_b4_tp/pilote_i2c/adxl345.o /home/coolman/seti_b4_tp/pilote_i2c/adxl345.mod.o;  true

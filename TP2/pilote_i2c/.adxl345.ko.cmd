@@ -1,1 +1,0 @@
-savedcmd_adxl345.ko := arm-linux-gnueabihf-ld -r -EL -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T /home/jf/Documents/M2R_SETI/B4/TP/linux/build/scripts/module.lds -o adxl345.ko adxl345.o adxl345.mod.o .module-common.o

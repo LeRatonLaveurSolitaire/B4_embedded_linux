@@ -1,4 +1,0 @@
-vexpress-v2p-ca9.o: ../arch/arm/boot/dts/arm/vexpress-v2p-ca9.dts \
- ../arch/arm/boot/dts/arm/vexpress-v2m.dtsi \
- ../scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/arm-gic.h \
- ../scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/irq.h

@@ -1,5 +1,0 @@
-vexpress-v2p-ca15-tc1.o: \
- ../arch/arm/boot/dts/arm/vexpress-v2p-ca15-tc1.dts \
- ../arch/arm/boot/dts/arm/vexpress-v2m-rs1.dtsi \
- ../scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/arm-gic.h \
- ../scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/irq.h

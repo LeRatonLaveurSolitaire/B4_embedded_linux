@@ -1,1 +1,0 @@
-savedcmd_arch/arm/boot/dts/arm/dtbs-list := {   echo arch/arm/boot/dts/arm/vexpress-v2p-ca5s.dtb;   echo arch/arm/boot/dts/arm/vexpress-v2p-ca9.dtb;   echo arch/arm/boot/dts/arm/vexpress-v2p-ca15-tc1.dtb;   echo arch/arm/boot/dts/arm/vexpress-v2p-ca15_a7.dtb; :; } > arch/arm/boot/dts/arm/dtbs-list
