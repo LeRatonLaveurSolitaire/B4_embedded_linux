@@ -35,7 +35,7 @@ To run the kernel with U-boot, run the following command :
 ./qemu-system-arm -machine vexpress-a9 -nographic -kernel TP1/u-boot-2025.01/u-boot -sd TP1/sdcard/sd
 ```
 
-Once in U-boot, run the follwing commands :
+Once in U-boot, stop the counter and run the following commands:
 
 ```bash
 fatload mmc 0:1 0x62000000 zImage
