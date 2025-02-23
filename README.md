@@ -11,14 +11,6 @@ git clone https://github.com/LeRatonLaveurSolitaire/B4_embedded_linux.git
 cd ./B4_embedded_linux
 ```
 
-## Install QEMU
-
-[Download link for QEMU](https://perso.telecom-paristech.fr/duc/cours/linux/tp1.html)
-
-Place the downloaded executable in your current directory, then check that you have the correct rights to run it :
-```bash
-chmod u+x qemu-system-arm
-```
 
 ## TP1 - Booting a Linux System
 
