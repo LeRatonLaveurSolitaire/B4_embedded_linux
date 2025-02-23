@@ -81,6 +81,7 @@ Once on qemu, login with `root` and then run the follwing commands :
 mount -t 9p -o trans=virtio mnt /mnt -oversion=9p2000.L,msize=10240
 insmod /mnt/adxl345.ko 
 cd /mnt
+chmod -R 755 .
 ./main
 ```
 
