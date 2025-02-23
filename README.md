@@ -9,6 +9,7 @@ Copy the git and get into the folder :
 ```bash
 git clone https://github.com/LeRatonLaveurSolitaire/B4_embedded_linux.git
 cd ./B4_embedded_linux
+chmod u+x qemu-system-arm
 ```
 
 
