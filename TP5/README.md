@@ -1,1 +1,1 @@
-# TP - 5 : Concurrence (Jules Farnaud)
+# TP - 5 : Concurrence (Jules Farnault)

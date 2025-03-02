@@ -9,7 +9,9 @@ Copy the git and get into the folder :
 ```bash
 git clone https://github.com/LeRatonLaveurSolitaire/B4_embedded_linux.git
 cd ./B4_embedded_linux
+chmod u+x qemu-system-arm
 ```
+
 
 ## TP1 - Booting a Linux System
 
@@ -33,7 +35,7 @@ To run the kernel with U-boot, run the following command :
 ./qemu-system-arm -machine vexpress-a9 -nographic -kernel TP1/u-boot-2025.01/u-boot -sd TP1/sdcard/sd
 ```
 
-Once in U-boot, run the follwing commands :
+Once in U-boot, stop the counter and run the following commands:
 
 ```bash
 fatload mmc 0:1 0x62000000 zImage
@@ -90,6 +92,7 @@ Once on qemu, login with `root` and then run the follwing commands :
 mount -t 9p -o trans=virtio mnt /mnt -oversion=9p2000.L,msize=10240
 insmod /mnt/adxl345.ko 
 cd /mnt
+chmod -R 755 .
 ./main
 ```
 
